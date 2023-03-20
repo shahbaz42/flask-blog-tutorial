@@ -1,5 +1,7 @@
 from flask import Flask
 import os
+from . import auth
+from . import db
 
 def create_app(test_config=None):
     # create and configure the app
@@ -27,7 +29,7 @@ def create_app(test_config=None):
     def hello():
         return 'Server is up', 200
 
-    from . import db
     db.init_app(app)
+    app.register_blueprint(auth.bp)
 
     return app
